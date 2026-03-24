@@ -1,0 +1,144 @@
+// SiteForge AI — Prisma Schema (SQLite)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String   // bcrypt hash
+  role      String   @default("VIEWER") // ADMIN | PM | VIEWER
+  createdAt DateTime @default(now())
+
+  projectMembers   ProjectMember[]
+  documentVersions DocumentVersion[]
+  checklistItems   ChecklistItem[]
+}
+
+model Project {
+  id         String   @id @default(cuid())
+  name       String
+  code       String
+  client     String
+  contractor String
+  status     String   @default("active")
+  createdAt  DateTime @default(now())
+
+  members     ProjectMember[]
+  documents   Document[]
+  constraints Constraint[]
+  changeItems ChangeItem[]
+  checklists  Checklist[]
+}
+
+model ProjectMember {
+  id        String @id @default(cuid())
+  userId    String
+  projectId String
+  role      String
+
+  user    User    @relation(fields: [userId], references: [id])
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@unique([userId, projectId])
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  projectId String
+  category  String   // planning | health_safety | engineering | commercial | quality | handover
+  code      String   // PL-001, HS-001, etc.
+  title     String
+  status    String   @default("DRAFT") // DRAFT | IN_REVIEW | APPROVED | ISSUED
+  content   Bytes?
+  htmlCache String?
+  version   Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project  Project           @relation(fields: [projectId], references: [id])
+  versions DocumentVersion[]
+
+  @@index([projectId])
+  @@index([code])
+}
+
+model DocumentVersion {
+  id         String   @id @default(cuid())
+  documentId String
+  version    Int
+  content    Bytes
+  changedBy  String
+  changeNote String?
+  createdAt  DateTime @default(now())
+
+  document Document @relation(fields: [documentId], references: [id])
+  user     User     @relation(fields: [changedBy], references: [id])
+
+  @@index([documentId])
+}
+
+model Constraint {
+  id        String  @id @default(cuid())
+  projectId String
+  category  String
+  title     String
+  severity  String  // high | medium | low
+  status    String  // open | mitigated | closed
+  owner     String?
+  notes     String?
+
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@index([projectId])
+}
+
+model ChangeItem {
+  id        String   @id @default(cuid())
+  projectId String
+  type      String   // EWN | CE
+  reference String
+  title     String
+  value     Float?
+  status    String   // notified | quoted | accepted | rejected
+  createdAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@index([projectId])
+}
+
+model Checklist {
+  id        String   @id @default(cuid())
+  projectId String
+  title     String
+  type      String
+  createdAt DateTime @default(now())
+
+  project Project         @relation(fields: [projectId], references: [id])
+  items   ChecklistItem[]
+
+  @@index([projectId])
+}
+
+model ChecklistItem {
+  id          String    @id @default(cuid())
+  checklistId String
+  text        String
+  checked     Boolean   @default(false)
+  checkedBy   String?
+  checkedAt   DateTime?
+  notes       String?
+  sortOrder   Int       @default(0)
+
+  checklist Checklist @relation(fields: [checklistId], references: [id])
+  user      User?     @relation(fields: [checkedBy], references: [id])
+
+  @@index([checklistId])
+}
