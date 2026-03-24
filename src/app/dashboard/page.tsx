@@ -12,7 +12,6 @@ import {
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
 
-  // Get first project for demo
   const project = await prisma.project.findFirst({
     where: { status: "active" },
     include: {
@@ -33,24 +32,23 @@ export default async function DashboardPage() {
   const ces = project?.changeItems.filter((c) => c.type === "CE").length || 0;
 
   const kpis = [
-    { label: "Total Documents", value: totalDocs, icon: FileText, color: "text-blue-400", bg: "bg-blue-400/10" },
-    { label: "Approved", value: approved, icon: CheckCircle2, color: "text-emerald-400", bg: "bg-emerald-400/10" },
-    { label: "In Review", value: inReview, icon: Clock, color: "text-amber-400", bg: "bg-amber-400/10" },
-    { label: "Draft", value: draft, icon: FileText, color: "text-slate-400", bg: "bg-slate-400/10" },
-    { label: "Issued", value: issued, icon: TrendingUp, color: "text-sky-400", bg: "bg-sky-400/10" },
-    { label: "Compliance", value: `${compliance}%`, icon: CheckCircle2, color: compliance >= 50 ? "text-emerald-400" : "text-red-400", bg: compliance >= 50 ? "bg-emerald-400/10" : "bg-red-400/10" },
-    { label: "Open Constraints", value: openConstraints, icon: AlertTriangle, color: "text-red-400", bg: "bg-red-400/10" },
-    { label: "EWNs / CEs", value: `${ewns} / ${ces}`, icon: AlertTriangle, color: "text-amber-400", bg: "bg-amber-400/10" },
+    { label: "Total Documents", value: totalDocs, icon: FileText, color: "text-navy", bg: "bg-navy/5" },
+    { label: "Approved", value: approved, icon: CheckCircle2, color: "text-emerald-600", bg: "bg-emerald-50" },
+    { label: "In Review", value: inReview, icon: Clock, color: "text-amber-600", bg: "bg-amber-50" },
+    { label: "Draft", value: draft, icon: FileText, color: "text-slate-500", bg: "bg-slate-50" },
+    { label: "Issued", value: issued, icon: TrendingUp, color: "text-blue-600", bg: "bg-blue-50" },
+    { label: "Compliance", value: `${compliance}%`, icon: CheckCircle2, color: compliance >= 50 ? "text-emerald-600" : "text-red-600", bg: compliance >= 50 ? "bg-emerald-50" : "bg-red-50" },
+    { label: "Open Constraints", value: openConstraints, icon: AlertTriangle, color: "text-red-600", bg: "bg-red-50" },
+    { label: "EWNs / CEs", value: `${ewns} / ${ces}`, icon: AlertTriangle, color: "text-amber-600", bg: "bg-amber-50" },
   ];
 
   return (
     <div className="space-y-6">
-      {/* Welcome */}
       <div>
-        <h1 className="text-2xl font-bold text-white">
+        <h1 className="text-2xl font-bold text-slate-900">
           Welcome back, {session?.user?.name?.split(" ")[0]}
         </h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <p className="mt-1 text-sm text-slate-500">
           {project?.code} — {project?.name}
         </p>
       </div>
@@ -62,7 +60,7 @@ export default async function DashboardPage() {
           return (
             <div
               key={kpi.label}
-              className="rounded-xl border border-slate-800 bg-slate-900 p-4 transition-colors hover:border-slate-700"
+              className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
             >
               <div className="flex items-center gap-3">
                 <div
@@ -71,8 +69,8 @@ export default async function DashboardPage() {
                   <Icon className={`h-5 w-5 ${kpi.color}`} />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-white">{kpi.value}</p>
-                  <p className="text-xs text-slate-400">{kpi.label}</p>
+                  <p className="text-2xl font-bold text-slate-900">{kpi.value}</p>
+                  <p className="text-xs text-slate-500">{kpi.label}</p>
                 </div>
               </div>
             </div>
@@ -82,15 +80,15 @@ export default async function DashboardPage() {
 
       {/* Constraints Summary */}
       {project?.constraints && project.constraints.length > 0 && (
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-          <h2 className="mb-4 text-lg font-semibold text-white">
+        <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+          <h2 className="mb-4 text-lg font-semibold text-slate-900">
             Key Constraints
           </h2>
           <div className="space-y-2">
             {project.constraints.slice(0, 5).map((c) => (
               <div
                 key={c.id}
-                className="flex items-start gap-3 rounded-lg bg-slate-800/50 p-3"
+                className="flex items-start gap-3 rounded-lg bg-gray-50 p-3"
               >
                 <span
                   className={`mt-0.5 inline-block h-2.5 w-2.5 rounded-full shrink-0 ${
@@ -102,18 +100,18 @@ export default async function DashboardPage() {
                   }`}
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-slate-200">{c.title}</p>
-                  <p className="mt-0.5 text-xs text-slate-500">
+                  <p className="text-sm text-slate-700">{c.title}</p>
+                  <p className="mt-0.5 text-xs text-slate-400">
                     {c.category.toUpperCase()} — Owner: {c.owner || "TBC"}
                   </p>
                 </div>
                 <span
                   className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${
                     c.severity === "high"
-                      ? "bg-red-500/10 text-red-400"
+                      ? "bg-red-50 text-red-600"
                       : c.severity === "medium"
-                      ? "bg-amber-500/10 text-amber-400"
-                      : "bg-green-500/10 text-green-400"
+                      ? "bg-amber-50 text-amber-600"
+                      : "bg-green-50 text-green-600"
                   }`}
                 >
                   {c.severity.toUpperCase()}
@@ -126,60 +124,42 @@ export default async function DashboardPage() {
 
       {/* Change Register Summary */}
       {project?.changeItems && project.changeItems.length > 0 && (
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-          <h2 className="mb-4 text-lg font-semibold text-white">
+        <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+          <h2 className="mb-4 text-lg font-semibold text-slate-900">
             Change Register
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-800">
-                  <th className="pb-2 text-left text-xs font-medium text-slate-500">
-                    Ref
-                  </th>
-                  <th className="pb-2 text-left text-xs font-medium text-slate-500">
-                    Type
-                  </th>
-                  <th className="pb-2 text-left text-xs font-medium text-slate-500 hidden sm:table-cell">
-                    Description
-                  </th>
-                  <th className="pb-2 text-left text-xs font-medium text-slate-500">
-                    Status
-                  </th>
-                  <th className="pb-2 text-right text-xs font-medium text-slate-500">
-                    Value
-                  </th>
+                <tr className="border-b border-gray-200">
+                  <th className="pb-2 text-left text-xs font-medium text-slate-400">Ref</th>
+                  <th className="pb-2 text-left text-xs font-medium text-slate-400">Type</th>
+                  <th className="pb-2 text-left text-xs font-medium text-slate-400 hidden sm:table-cell">Description</th>
+                  <th className="pb-2 text-left text-xs font-medium text-slate-400">Status</th>
+                  <th className="pb-2 text-right text-xs font-medium text-slate-400">Value</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/50">
+              <tbody className="divide-y divide-gray-100">
                 {project.changeItems.slice(0, 8).map((ch) => (
-                  <tr key={ch.id} className="hover:bg-slate-800/30">
-                    <td className="py-2 font-mono text-xs text-blue-400">
-                      {ch.reference}
-                    </td>
+                  <tr key={ch.id} className="hover:bg-gray-50">
+                    <td className="py-2 font-mono text-xs text-navy font-medium">{ch.reference}</td>
                     <td className="py-2">
                       <span
                         className={`rounded px-1.5 py-0.5 text-xs font-medium ${
                           ch.type === "CE"
-                            ? "bg-amber-500/10 text-amber-400"
-                            : "bg-blue-500/10 text-blue-400"
+                            ? "bg-amber-50 text-amber-700"
+                            : "bg-blue-50 text-blue-700"
                         }`}
                       >
                         {ch.type}
                       </span>
                     </td>
-                    <td className="py-2 text-slate-300 max-w-xs truncate hidden sm:table-cell">
-                      {ch.title}
-                    </td>
+                    <td className="py-2 text-slate-600 max-w-xs truncate hidden sm:table-cell">{ch.title}</td>
                     <td className="py-2">
-                      <span className="rounded-full bg-slate-700 px-2 py-0.5 text-xs text-slate-300">
-                        {ch.status}
-                      </span>
+                      <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-slate-600">{ch.status}</span>
                     </td>
-                    <td className="py-2 text-right font-mono text-xs text-slate-300">
-                      {ch.value
-                        ? `£${ch.value.toLocaleString()}`
-                        : "—"}
+                    <td className="py-2 text-right font-mono text-xs text-slate-600">
+                      {ch.value ? `\u00A3${ch.value.toLocaleString()}` : "\u2014"}
                     </td>
                   </tr>
                 ))}

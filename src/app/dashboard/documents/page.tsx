@@ -21,10 +21,10 @@ interface Doc {
 }
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; icon: typeof FileText }> = {
-  DRAFT: { label: "Draft", color: "text-slate-400", bg: "bg-slate-500/10", icon: File },
-  IN_REVIEW: { label: "In Review", color: "text-amber-400", bg: "bg-amber-500/10", icon: Clock },
-  APPROVED: { label: "Approved", color: "text-emerald-400", bg: "bg-emerald-500/10", icon: CheckCircle2 },
-  ISSUED: { label: "Issued", color: "text-sky-400", bg: "bg-sky-500/10", icon: Send },
+  DRAFT: { label: "Draft", color: "text-slate-600", bg: "bg-slate-50", icon: File },
+  IN_REVIEW: { label: "In Review", color: "text-amber-600", bg: "bg-amber-50", icon: Clock },
+  APPROVED: { label: "Approved", color: "text-emerald-600", bg: "bg-emerald-50", icon: CheckCircle2 },
+  ISSUED: { label: "Issued", color: "text-sky-600", bg: "bg-sky-50", icon: Send },
 };
 
 const CATEGORIES: Record<string, string> = {
@@ -145,8 +145,8 @@ export default function DocumentsPage() {
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Documents</h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <h1 className="text-2xl font-bold text-slate-900">Documents</h1>
+          <p className="mt-1 text-sm text-slate-500">
             {filtered.length} of {docs.length} documents
           </p>
         </div>
@@ -164,13 +164,13 @@ export default function DocumentsPage() {
 
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
         <input
           type="text"
           placeholder="Search by title or code..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-lg border border-slate-700 bg-slate-800 py-2.5 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy min-h-[44px]"
+          className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy min-h-[44px] shadow-sm"
         />
       </div>
 
@@ -179,7 +179,7 @@ export default function DocumentsPage() {
         <button
           onClick={() => setFilterCategory("")}
           className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors min-h-[36px] ${
-            !filterCategory ? "bg-navy text-white" : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+            !filterCategory ? "bg-navy text-white" : "bg-gray-100 text-slate-700 hover:bg-gray-200"
           }`}
         >
           All
@@ -189,7 +189,7 @@ export default function DocumentsPage() {
             key={key}
             onClick={() => setFilterCategory(filterCategory === key ? "" : key)}
             className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors min-h-[36px] ${
-              filterCategory === key ? "bg-navy text-white" : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+              filterCategory === key ? "bg-navy text-white" : "bg-gray-100 text-slate-700 hover:bg-gray-200"
             }`}
           >
             {label}
@@ -216,12 +216,12 @@ export default function DocumentsPage() {
       <div className="flex items-center gap-3">
         <button
           onClick={toggleSelectAll}
-          className="flex items-center gap-2 text-xs text-slate-400 hover:text-slate-300 transition-colors min-h-[32px]"
+          className="flex items-center gap-2 text-xs text-slate-500 hover:text-slate-700 transition-colors min-h-[32px]"
         >
           <span className={`flex h-4 w-4 items-center justify-center rounded border ${
             selected.size === filtered.length && filtered.length > 0
               ? "border-blue-500 bg-blue-500"
-              : "border-slate-600"
+              : "border-gray-300"
           }`}>
             {selected.size === filtered.length && filtered.length > 0 && (
               <CheckCircle2 className="h-3 w-3 text-white" />
@@ -240,13 +240,13 @@ export default function DocumentsPage() {
 
       {/* Document groups */}
       {!loading && Object.entries(grouped).map(([category, catDocs]) => (
-        <div key={category} className="rounded-xl border border-slate-800 bg-slate-900">
-          <div className="border-b border-slate-800 px-5 py-3">
-            <h2 className="text-sm font-semibold text-slate-300 uppercase tracking-wider">
+        <div key={category} className="rounded-xl border border-gray-200 bg-white shadow-sm">
+          <div className="border-b border-gray-200 px-5 py-3">
+            <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">
               {CATEGORIES[category] || category} ({catDocs.length})
             </h2>
           </div>
-          <div className="divide-y divide-slate-800/50">
+          <div className="divide-y divide-gray-100">
             {catDocs.map((doc) => {
               const cfg = STATUS_CONFIG[doc.status] || STATUS_CONFIG.DRAFT;
               const Icon = cfg.icon;
@@ -256,14 +256,14 @@ export default function DocumentsPage() {
                 <div
                   key={doc.id}
                   className={`flex items-center gap-3 px-5 py-3 transition-colors cursor-pointer ${
-                    isSelected ? "bg-navy/10" : "hover:bg-slate-800/30"
+                    isSelected ? "bg-navy/5" : "hover:bg-gray-50"
                   }`}
                 >
                   {/* Checkbox */}
                   <button
                     onClick={() => toggleSelect(doc.id)}
                     className={`flex h-5 w-5 items-center justify-center rounded border shrink-0 ${
-                      isSelected ? "border-blue-500 bg-blue-500" : "border-slate-600 hover:border-slate-500"
+                      isSelected ? "border-blue-500 bg-blue-500" : "border-gray-300 hover:border-gray-400"
                     }`}
                   >
                     {isSelected && <CheckCircle2 className="h-3.5 w-3.5 text-white" />}
@@ -276,17 +276,17 @@ export default function DocumentsPage() {
 
                   {/* Title */}
                   <div className="flex-1 min-w-0" onClick={() => setViewingDocId(doc.id)}>
-                    <p className="text-sm font-medium text-white truncate">
+                    <p className="text-sm font-medium text-slate-900 truncate">
                       {doc.code} — {doc.title}
                     </p>
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <div className="flex items-center gap-2 text-xs text-slate-400">
                       <span>v{doc.version}</span>
                       <span>·</span>
                       <span>{new Date(doc.updatedAt).toLocaleDateString("en-GB")}</span>
                       {doc.hasContent && (
                         <>
                           <span>·</span>
-                          <span className="text-blue-400">Has content</span>
+                          <span className="text-blue-500">Has content</span>
                         </>
                       )}
                     </div>
@@ -300,14 +300,14 @@ export default function DocumentsPage() {
                         {cfg.label}
                         <ChevronDown className="ml-1 inline h-3 w-3" />
                       </button>
-                      <div className="absolute right-0 top-full z-40 mt-1 hidden group-hover:block w-32 rounded-lg border border-slate-700 bg-slate-800 shadow-xl py-1">
+                      <div className="absolute right-0 top-full z-40 mt-1 hidden group-hover:block w-32 rounded-lg border border-gray-200 bg-white shadow-xl py-1">
                         {STATUS_FLOW.map((s) => (
                           <button
                             key={s}
                             onClick={() => handleStatusChange(doc.id, s)}
                             disabled={statusUpdating === doc.id}
                             className={`block w-full px-3 py-1.5 text-left text-xs transition-colors min-h-[32px] ${
-                              doc.status === s ? "text-white bg-slate-700" : "text-slate-300 hover:bg-slate-700"
+                              doc.status === s ? "text-slate-900 bg-gray-100" : "text-slate-600 hover:bg-gray-100"
                             }`}
                           >
                             {STATUS_CONFIG[s]?.label || s}
@@ -319,7 +319,7 @@ export default function DocumentsPage() {
                     {/* View */}
                     <button
                       onClick={() => setViewingDocId(doc.id)}
-                      className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-slate-800 transition-colors"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
                       title="View document"
                     >
                       <Eye className="h-4 w-4 text-slate-400" />
@@ -329,7 +329,7 @@ export default function DocumentsPage() {
                     {doc.hasContent && (
                       <button
                         onClick={() => window.open(`/api/documents/${doc.id}/download`, "_blank")}
-                        className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-slate-800 transition-colors"
+                        className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
                         title="Download .docx"
                       >
                         <Download className="h-4 w-4 text-slate-400" />
@@ -345,9 +345,9 @@ export default function DocumentsPage() {
 
       {/* Empty state */}
       {!loading && filtered.length === 0 && (
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-12 text-center">
-          <FileText className="mx-auto h-12 w-12 text-slate-600" />
-          <p className="mt-3 text-sm text-slate-400">No documents match your filters.</p>
+        <div className="rounded-xl border border-gray-200 bg-white p-12 text-center shadow-sm">
+          <FileText className="mx-auto h-12 w-12 text-slate-300" />
+          <p className="mt-3 text-sm text-slate-500">No documents match your filters.</p>
         </div>
       )}
 

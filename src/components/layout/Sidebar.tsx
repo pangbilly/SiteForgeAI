@@ -38,14 +38,14 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
   const [docsOpen, setDocsOpen] = useState(false);
 
   return (
-    <nav className="flex h-full flex-col bg-slate-900 border-r border-slate-800">
+    <nav className="flex h-full flex-col bg-white border-r border-gray-200">
       {/* Logo */}
-      <div className="flex items-center gap-3 px-5 py-5 border-b border-slate-800">
+      <div className="flex items-center gap-3 px-5 py-5 border-b border-gray-100">
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-navy text-white font-bold text-sm">
           SF
         </div>
         <div>
-          <h1 className="text-base font-semibold text-white">SiteForge AI</h1>
+          <h1 className="text-base font-semibold text-slate-900">SiteForge AI</h1>
           <p className="text-xs text-slate-400">Construction PM Assistant</p>
         </div>
       </div>
@@ -66,7 +66,7 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
                       "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors min-h-[44px]",
                       isActive || pathname.startsWith("/dashboard/documents")
                         ? "bg-navy text-white"
-                        : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                        : "text-slate-600 hover:bg-gray-100 hover:text-slate-900"
                     )}
                   >
                     <Icon className="h-5 w-5 shrink-0" />
@@ -83,7 +83,7 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
                         <Link
                           href="/dashboard/documents"
                           onClick={onClose}
-                          className="block rounded px-3 py-1.5 text-sm text-slate-400 hover:text-white hover:bg-slate-800 min-h-[36px] flex items-center"
+                          className="block rounded px-3 py-1.5 text-sm text-slate-500 hover:text-slate-900 hover:bg-gray-100 min-h-[36px] flex items-center"
                         >
                           All Documents
                         </Link>
@@ -93,10 +93,10 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
                           <Link
                             href={`/dashboard/documents?category=${cat.key}`}
                             onClick={onClose}
-                            className="flex items-center justify-between rounded px-3 py-1.5 text-sm text-slate-400 hover:text-white hover:bg-slate-800 min-h-[36px]"
+                            className="flex items-center justify-between rounded px-3 py-1.5 text-sm text-slate-500 hover:text-slate-900 hover:bg-gray-100 min-h-[36px]"
                           >
                             <span>{cat.label}</span>
-                            <span className="text-xs text-slate-500">
+                            <span className="text-xs text-slate-400">
                               {cat.count}
                             </span>
                           </Link>
@@ -117,7 +117,7 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
                     "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors min-h-[44px]",
                     isActive
                       ? "bg-navy text-white"
-                      : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                      : "text-slate-600 hover:bg-gray-100 hover:text-slate-900"
                   )}
                 >
                   <Icon className="h-5 w-5 shrink-0" />
@@ -130,9 +130,9 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-slate-800 px-4 py-3">
-        <p className="text-xs text-slate-500">Pang & Chiu</p>
-        <p className="text-xs text-slate-600">v0.1.0 — Phase 1</p>
+      <div className="border-t border-gray-100 px-4 py-3">
+        <p className="text-xs text-slate-400">Pang & Chiu</p>
+        <p className="text-xs text-slate-300">v0.1.0</p>
       </div>
     </nav>
   );

@@ -37,7 +37,7 @@ export function AppShell({ children, projects }: AppShellProps) {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-gray-50">
       {/* Desktop sidebar */}
       <aside className="hidden lg:flex lg:w-64 lg:shrink-0">
         <Sidebar />
@@ -47,17 +47,17 @@ export function AppShell({ children, projects }: AppShellProps) {
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="absolute inset-0 bg-black/60"
+            className="absolute inset-0 bg-black/40"
             onClick={() => setMobileOpen(false)}
           />
           <div className="absolute inset-y-0 left-0 w-72 shadow-xl">
             <div className="relative h-full">
               <button
                 onClick={() => setMobileOpen(false)}
-                className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors"
+                className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
                 aria-label="Close menu"
               >
-                <X className="h-5 w-5 text-slate-300" />
+                <X className="h-5 w-5 text-slate-600" />
               </button>
               <Sidebar onClose={() => setMobileOpen(false)} />
             </div>

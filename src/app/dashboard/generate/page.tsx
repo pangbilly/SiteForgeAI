@@ -4,8 +4,8 @@ export default function GeneratePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">AI Document Generation</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <h1 className="text-2xl font-bold text-slate-900">AI Document Generation</h1>
+        <p className="mt-1 text-sm text-slate-500">
           Upload a project brief and generate PM documents using AI
         </p>
       </div>
@@ -22,32 +22,32 @@ export default function GeneratePage() {
           return (
             <div
               key={s.step}
-              className="rounded-xl border border-slate-800 bg-slate-900 p-5"
+              className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-navy text-white text-sm font-bold">
                   {s.step}
                 </span>
-                <Icon className="h-5 w-5 text-blue-400" />
+                <Icon className="h-5 w-5 text-blue-500" />
               </div>
-              <h3 className="text-sm font-semibold text-white">{s.title}</h3>
-              <p className="mt-1 text-xs text-slate-400">{s.desc}</p>
+              <h3 className="text-sm font-semibold text-slate-900">{s.title}</h3>
+              <p className="mt-1 text-xs text-slate-500">{s.desc}</p>
             </div>
           );
         })}
       </div>
 
       {/* Placeholder CTA */}
-      <div className="rounded-xl border-2 border-dashed border-slate-700 bg-slate-900/50 p-12 text-center">
-        <Sparkles className="mx-auto h-12 w-12 text-slate-600" />
-        <h2 className="mt-4 text-lg font-semibold text-slate-300">
+      <div className="rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-12 text-center">
+        <Sparkles className="mx-auto h-12 w-12 text-slate-300" />
+        <h2 className="mt-4 text-lg font-semibold text-slate-600">
           Coming in Phase 4
         </h2>
         <p className="mt-2 text-sm text-slate-500 max-w-md mx-auto">
           AI document generation will be available once the Anthropic Claude API key is configured.
           Upload a brief, select templates, and generate all 43 PM documents in one batch.
         </p>
-        <p className="mt-4 text-xs text-slate-600">
+        <p className="mt-4 text-xs text-slate-400">
           Configure your API key in Settings → API Configuration
         </p>
       </div>

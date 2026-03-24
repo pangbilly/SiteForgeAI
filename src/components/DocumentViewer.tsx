@@ -54,16 +54,16 @@ export function DocumentViewer({ docId, onClose }: DocumentViewerProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/70 p-4 sm:p-8">
-      <div className="w-full max-w-4xl rounded-xl border border-slate-700 bg-slate-900 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 p-4 sm:p-8">
+      <div className="w-full max-w-4xl rounded-xl border border-gray-200 bg-white shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
+        <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
           <div className="min-w-0 flex-1">
-            <h2 className="text-base font-semibold text-white truncate">
+            <h2 className="text-base font-semibold text-slate-900 truncate">
               {doc ? `${doc.code} — ${doc.title}` : "Loading..."}
             </h2>
             {doc && (
-              <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+              <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-slate-500">
                 <span>v{doc.version}</span>
                 <span>·</span>
                 <StatusBadge status={doc.status} />
@@ -84,7 +84,7 @@ export function DocumentViewer({ docId, onClose }: DocumentViewerProps) {
             )}
             <button
               onClick={onClose}
-              className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-slate-800 transition-colors"
+              className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
               aria-label="Close viewer"
             >
               <X className="h-5 w-5 text-slate-400" />
@@ -97,24 +97,24 @@ export function DocumentViewer({ docId, onClose }: DocumentViewerProps) {
           {loading && (
             <div className="flex flex-col items-center justify-center py-16">
               <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
-              <p className="mt-3 text-sm text-slate-400">Loading document...</p>
+              <p className="mt-3 text-sm text-slate-500">Loading document...</p>
             </div>
           )}
 
           {error && (
             <div className="flex flex-col items-center justify-center py-16">
               <AlertCircle className="h-8 w-8 text-red-400" />
-              <p className="mt-3 text-sm text-red-400">{error}</p>
+              <p className="mt-3 text-sm text-red-500">{error}</p>
             </div>
           )}
 
           {!loading && !error && !html && (
             <div className="flex flex-col items-center justify-center py-16">
-              <FileText className="h-12 w-12 text-slate-600" />
-              <p className="mt-3 text-sm text-slate-400">
+              <FileText className="h-12 w-12 text-slate-300" />
+              <p className="mt-3 text-sm text-slate-500">
                 No document content available yet.
               </p>
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-slate-400">
                 Generate this document using AI Generate to add content.
               </p>
             </div>
@@ -122,16 +122,16 @@ export function DocumentViewer({ docId, onClose }: DocumentViewerProps) {
 
           {html && (
             <div
-              className="prose prose-invert prose-sm max-w-none
-                prose-headings:text-white prose-headings:font-semibold
-                prose-h1:text-xl prose-h1:text-[#1F4E79] prose-h1:border-b prose-h1:border-slate-800 prose-h1:pb-2
+              className="prose prose-sm max-w-none
+                prose-headings:text-slate-900 prose-headings:font-semibold
+                prose-h1:text-xl prose-h1:text-[#1F4E79] prose-h1:border-b prose-h1:border-gray-200 prose-h1:pb-2
                 prose-h2:text-lg prose-h2:text-[#2E75B6]
-                prose-p:text-slate-300 prose-p:leading-relaxed
-                prose-li:text-slate-300
+                prose-p:text-slate-600 prose-p:leading-relaxed
+                prose-li:text-slate-600
                 prose-table:border-collapse
                 prose-th:bg-[#1F4E79] prose-th:text-white prose-th:px-3 prose-th:py-2 prose-th:text-sm prose-th:font-medium
-                prose-td:border prose-td:border-slate-700 prose-td:px-3 prose-td:py-2 prose-td:text-sm prose-td:text-slate-300
-                prose-strong:text-white"
+                prose-td:border prose-td:border-gray-200 prose-td:px-3 prose-td:py-2 prose-td:text-sm prose-td:text-slate-600
+                prose-strong:text-slate-900"
               dangerouslySetInnerHTML={{ __html: html }}
             />
           )}
@@ -143,10 +143,10 @@ export function DocumentViewer({ docId, onClose }: DocumentViewerProps) {
 
 function StatusBadge({ status }: { status: string }) {
   const config: Record<string, { label: string; cls: string }> = {
-    DRAFT: { label: "Draft", cls: "bg-slate-500/10 text-slate-400" },
-    IN_REVIEW: { label: "In Review", cls: "bg-amber-500/10 text-amber-400" },
-    APPROVED: { label: "Approved", cls: "bg-emerald-500/10 text-emerald-400" },
-    ISSUED: { label: "Issued", cls: "bg-sky-500/10 text-sky-400" },
+    DRAFT: { label: "Draft", cls: "bg-slate-50 text-slate-600" },
+    IN_REVIEW: { label: "In Review", cls: "bg-amber-50 text-amber-600" },
+    APPROVED: { label: "Approved", cls: "bg-emerald-50 text-emerald-600" },
+    ISSUED: { label: "Issued", cls: "bg-sky-50 text-sky-600" },
   };
   const c = config[status] || config.DRAFT;
   return (
