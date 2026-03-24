@@ -122,11 +122,11 @@ function LoginForm() {
               </p>
               <p>
                 <span className="text-slate-500">PM:</span>{" "}
-                pm@barhale.co.uk / barhale2026
+                pm@pangandchiu.com / siteforge2026
               </p>
               <p>
                 <span className="text-slate-500">Viewer:</span>{" "}
-                viewer@barhale.co.uk / barhale2026
+                viewer@pangandchiu.com / siteforge2026
               </p>
             </div>
           </div>

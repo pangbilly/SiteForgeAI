@@ -5,8 +5,8 @@ const prisma = new PrismaClient();
 
 const USERS = [
   { email: "admin@pangandchiu.com", name: "Billy Kin Pang", password: "siteforge2026", role: "ADMIN" },
-  { email: "pm@barhale.co.uk", name: "Barhale PM", password: "barhale2026", role: "PM" },
-  { email: "viewer@barhale.co.uk", name: "Barhale Viewer", password: "barhale2026", role: "VIEWER" },
+  { email: "pm@pangandchiu.com", name: "Project Manager", password: "siteforge2026", role: "PM" },
+  { email: "viewer@pangandchiu.com", name: "Site Viewer", password: "siteforge2026", role: "VIEWER" },
 ];
 
 const PROJECTS = [
