@@ -309,7 +309,7 @@ export function makeDoc(
                 },
                 children: [
                   new TextRun({
-                    text: `J676 | ${ref}`,
+                    text: `BR-01 | ${ref}`,
                     font: 'Arial',
                     size: 14,
                     bold: true,
@@ -334,7 +334,7 @@ export function makeDoc(
               new Paragraph({
                 children: [
                   new TextRun({
-                    text: 'Barhale / Pang & Chiu | J676 Manor Road NOS',
+                    text: 'Pang & Chiu | Bridge Remediation Programme',
                     font: 'Arial',
                     size: 12,
                     color: '999999',
@@ -373,7 +373,7 @@ export function makeDoc(
                 children: [
                   hdr('Project', 2400),
                   cel(
-                    'J676 \u2013 Manor Road NOS Bridge Remediation (NOS07 & NOS08)',
+                    'BR-01 \u2013 Bridge Remediation Programme (BR-01 & BR-02)',
                     6986
                   ),
                 ],
@@ -381,13 +381,13 @@ export function makeDoc(
               new TableRow({
                 children: [
                   hdr('Contract', 2400),
-                  cel('FA1495 Design & Build Target Cost', 6986),
+                  cel('Design & Build Target Cost Contract', 6986),
                 ],
               }),
               new TableRow({
                 children: [
                   hdr('Prepared By', 2400),
-                  cel('[PM Name] \u2013 Barhale', 6986),
+                  cel('[PM Name] \u2013 Meridian Civil Engineering', 6986),
                 ],
               }),
               new TableRow({

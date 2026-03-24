@@ -234,7 +234,7 @@ export const DOCUMENT_CATALOGUE: DocumentCatalogueEntry[] = [
   },
   {
     code: "CM-003",
-    title: "CE Quotation (NOS07/NOS08)",
+    title: "CE Quotation",
     category: "commercial",
     description: "Quotation for compensation event costs and programme impact",
     inputs: ["CE notice", "cost breakdown", "programme impact"],
